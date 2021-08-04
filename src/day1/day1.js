@@ -28,6 +28,6 @@ const getPositionFloor = (listFloor) => {
 		return str === '(' ? ++floor : --floor;
 	});
 
-	let searchIndex = positionList.indexOf(-1)
-	return ++searchIndex;
+	let searchedIndex = positionList.indexOf(-1)
+	return ++searchedIndex;
 };
