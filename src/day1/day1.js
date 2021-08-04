@@ -24,7 +24,7 @@ exports.run2 = () => {
 
 const getPositionFloor = (listFloor) => {
 	let floor = 0;
-	var positionList = listFloor.map(str => {
+	const positionList = listFloor.map(str => {
 		return str === '(' ? ++floor : --floor;
 	});
 
