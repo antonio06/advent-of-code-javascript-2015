@@ -1004,10 +1004,11 @@ exports.run1 = () => {
 }
 
 const parsePaperDimensions = (input) => {
-	const parsePaperDimensions = input.replace(/x/g, ',').split('\n');
+	const parsePaperDimensions = input.split('\n');
 
 	return parsePaperDimensions.map(element => {
-		const elementList = element.split(',');
+
+		const elementList = element.split('x').map(element => parseInt(element));
 
 		return elementList;
 	})
@@ -1025,13 +1026,14 @@ const getSquareFeetOfWrappingPaper = (input) => {
 const getSquare = (paperDimensions) => {
 	const [length, width, height] = paperDimensions;
 
-	const a = length * width;
-	const b = width * height;
-	const c = length * height;
+	const side1 = length * width;
+	const side2 = width * height;
+	const side3 = length * height;
 
-	const plusPaper = [a, b, c].sort((first, second) => first - second)[0];
+	const plusPaper = [side1, side2, side3]
+		.sort((first, second) => first - second)[0];
 
-	return ((2 * a) + (2 * b) + (2 * c)) + plusPaper;
+	return ((2 * side1) + (2 * side2) + (2 * side3)) + plusPaper;
 }
 
 const input2 = `29x13x26
@@ -2043,15 +2045,16 @@ const getFeetOfRibbon = (input) => {
 	const paperDimensions = parsePaperDimensions(input);
 
 	return paperDimensions.reduce((acc, element) => {
-		return getFeet(element) + acc;
+		return getRibbon(element) + acc;
 	}, 0);
 }
 
-const getFeet = (paperDimensions) => {
-	const [length, width, height] = paperDimensions;
+const getRibbon = (paperDimensions) => {
+	const [side1, side2, side3] = paperDimensions
+		.sort((firstElement, secondElement) => firstElement - secondElement);
 
-	const feetOfRibbon = Number(length + length) + Number(width + width);
-	const presentPlus = (length * width) * height;
+	const feetOfRibbon = side1 + side1 + side2 + side2;
+	const presentPlus = side1 * side2 * side3;
 
 	return feetOfRibbon + presentPlus;
 }
